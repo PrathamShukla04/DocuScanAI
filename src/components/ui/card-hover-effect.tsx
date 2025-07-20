@@ -1,17 +1,21 @@
+"use client";
+
 import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, ReactNode } from "react";
+
+type HoverItem = {
+  title: string;
+  description: string;
+  link: string;
+};
 
 export const HoverEffect = ({
   items,
   className,
 }: {
-  items: {
-    title: string;
-    description: string;
-    link: string;
-  }[];
+  items: HoverItem[];
   className?: string;
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -25,8 +29,8 @@ export const HoverEffect = ({
     >
       {items.map((item, idx) => (
         <Link
-          href={item?.link}
-          key={`${item?.link}-${idx}`} // ✅ unique key using link + index
+          href={item.link}
+          key={`${item.link}-${idx}`} // Unique key
           className="relative group block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
@@ -38,7 +42,10 @@ export const HoverEffect = ({
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, transition: { duration: 0.15 } }}
-                exit={{ opacity: 0, transition: { duration: 0.15, delay: 0.2 } }}
+                exit={{
+                  opacity: 0,
+                  transition: { duration: 0.15, delay: 0.2 },
+                }}
               />
             )}
           </AnimatePresence>
@@ -52,12 +59,13 @@ export const HoverEffect = ({
   );
 };
 
+// Reusable Card Component
 export const Card = ({
   className,
   children,
 }: {
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) => {
   return (
     <div
@@ -78,7 +86,7 @@ export const CardTitle = ({
   children,
 }: {
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) => {
   return (
     <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4", className)}>
@@ -92,7 +100,7 @@ export const CardDescription = ({
   children,
 }: {
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) => {
   return (
     <p

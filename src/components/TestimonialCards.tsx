@@ -1,6 +1,6 @@
 'use client';
 
-import { CardStack } from '@/components/ui/card-stack'; // adjust path if needed
+import { CardStack } from './ui/card-stack'; 
 import React from 'react';
 
 const testimonials = [
