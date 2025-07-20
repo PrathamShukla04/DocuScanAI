@@ -1,6 +1,7 @@
 "use client";
+
 import React from "react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 const transition = {
   type: "spring",
@@ -41,7 +42,7 @@ export const MenuItem = ({
               <motion.div
                 transition={transition}
                 layoutId="active"
-                className="bg-black text-white backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 shadow-xl"
+                className="bg-black text-white backdrop-blur-sm rounded-2xl overflow-hidden border border-white shadow-xl"
               >
                 <motion.div layout className="w-max h-full p-4">
                   {children}
@@ -65,7 +66,7 @@ export const Menu = ({
   return (
     <nav
       onMouseLeave={() => setActive(null)}
-      className="relative rounded-full border border-white/20 bg-black shadow-input flex justify-center space-x-4 px-8 py-6"
+      className="relative rounded-full border border-white bg-black shadow-input flex justify-center space-x-4 px-8 py-6"
     >
       {children}
     </nav>
@@ -100,7 +101,10 @@ export const ProductItem = ({
   );
 };
 
-export const HoveredLink = ({ children, ...rest }: any) => {
+export const HoveredLink = ({
+  children,
+  ...rest
+}: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
   return (
     <a {...rest} className="text-neutral-300 hover:text-white">
       {children}

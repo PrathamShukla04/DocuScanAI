@@ -1,54 +1,66 @@
-'use client'
-import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
+'use client';
 
-const musicSchoolTestimonials = [
-    {
-      quote:
-        'Joining the music school transformed my understanding of music and helped me to truly discover my own sound. The instructors are world-class!',
-      name: 'Alex Johnson',
-      title: 'Guitar Student',
-    },
-    {
-      quote:
-        "The community and support at this school are unmatched. I've grown not just as a pianist, but also as a performer, thanks to their comprehensive approach.",
-      name: 'Samantha Lee',
-      title: 'Piano Student',
-    },
-    {
-      quote:
-        "This school offered me the tools and confidence to take my singing to the next level. I'm endlessly grateful for the personalized coaching.",
-      name: 'Michael Chen',
-      title: 'Vocal Student',
-    },
-    {
-      quote:
-        'As a violinist, finding the right mentor can be challenging, but this school matched me with a teacher who truly understands my goals and challenges.',
-      name: 'Emily Taylor',
-      title: 'Violin Student',
-    },
-    {
-      quote:
-        'The production courses here opened my eyes to the intricacies of music production. Highly recommend for any aspiring producers!',
-      name: 'Chris Morales',
-      title: 'Music Production Student',
-    },
-  ];
+import { CardStack } from '@/components/ui/card-stack'; // adjust path if needed
+import React from 'react';
+
+const testimonials = [
+  {
+    id: 1,
+    name: 'Alex Johnson',
+    designation: 'Guitar Student',
+    content:
+      '🎸 Joining the music school transformed my understanding of music and helped me to truly discover my own sound. The instructors are world-class!',
+  },
+  {
+    id: 2,
+    name: 'Samantha Lee',
+    designation: 'Piano Student',
+    content:
+      "🎹 The community and support at this school are unmatched. I've grown not just as a pianist, but also as a performer.",
+  },
+  {
+    id: 3,
+    name: 'Michael Chen',
+    designation: 'Vocal Student',
+    content:
+      "🎤 This school offered me the tools and confidence to take my singing to the next level. I'm endlessly grateful for the coaching.",
+  },
+  {
+    id: 4,
+    name: 'Emily Taylor',
+    designation: 'Violin Student',
+    content:
+      '🎻 As a violinist, finding the right mentor can be challenging, but this school matched me with the perfect teacher.',
+  },
+  {
+    id: 5,
+    name: 'Chris Morales',
+    designation: 'Music Production Student',
+    content:
+      '🎧 The production courses opened my eyes to the intricacies of music production. Highly recommend for aspiring producers!',
+  },
+];
 
 function MusicSchoolTestimonials() {
   return (
-    <div className="h-[40rem] w-full dark:bg-black dark:bg-grid-white/[0.2] relative flex flex-col items-center justify-center overflow-hidden">
-        <h2 className="text-3xl font-bold text-center text-white mb-8 z-10">Hear our Harmony: Voices of success</h2>
-        <div className="flex justify-center w-full overflow-hidden px-4 sm:px-6 lg:px-8">
-            <div className="w-full max-w-6xl">
-            <InfiniteMovingCards
-                items={musicSchoolTestimonials}
-                direction="right"
-                speed="slow"
+    <div className="h-[40rem] w-full bg-black dark:bg-black flex flex-col items-center justify-center overflow-hidden pt-10">
+      <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-12 z-10">
+        Hear Our Harmony: Voices of Success
+      </h2>
+      <CardStack
+        items={testimonials.map((testimonial) => ({
+          ...testimonial,
+          content: (
+            <p className="text-md leading-relaxed text-neutral-600 dark:text-neutral-200">
+              {testimonial.content}
+            </p>
+          ),
+        }))}
+        offset={12}
+        scaleFactor={0.04}
       />
-            </div>
-        </div>
     </div>
-  )
+  );
 }
 
-export default MusicSchoolTestimonials
+export default MusicSchoolTestimonials;
