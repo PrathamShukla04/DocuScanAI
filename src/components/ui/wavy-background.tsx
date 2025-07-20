@@ -1,75 +1,117 @@
 "use client";
-import React, { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 import { cn } from "@/utils/cn";
-
-interface WavyBackgroundProps {
-  className?: string;
-  children?: React.ReactNode;
-  colors?: [string, string];
-  waveHeight?: number;
-  waveOpacity?: number;
-}
+import React, { useEffect, useRef } from "react";
+import { createNoise3D } from "simplex-noise";
 
 export const WavyBackground = ({
-  className,
   children,
-  colors = ["#0f0c29", "#302b63"],
-  waveHeight = 40,
-  waveOpacity = 0.2,
-}: WavyBackgroundProps) => {
+  className,
+  containerClassName,
+  colors,
+  waveWidth,
+  backgroundFill,
+  blur = 10,
+  speed = "fast",
+  waveOpacity = 0.5,
+  ...props
+}: {
+  children?: any;
+  className?: string;
+  containerClassName?: string;
+  colors?: string[];
+  waveWidth?: number;
+  backgroundFill?: string;
+  blur?: number;
+  speed?: "slow" | "fast";
+  waveOpacity?: number;
+  [key: string]: any;
+}) => {
+  const noise = createNoise3D();
+  let w: number,
+    h: number,
+    nt: number,
+    i: number,
+    x: number,
+    ctx: any,
+    canvas: any;
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const getSpeed = () => {
+    switch (speed) {
+      case "slow":
+        return 0.001;
+      case "fast":
+        return 0.002;
+      default:
+        return 0.001;
+    }
+  };
+
+  const init = () => {
+    canvas = canvasRef.current;
+    ctx = canvas.getContext("2d");
+    w = ctx.canvas.width = window.innerWidth;
+    h = ctx.canvas.height = window.innerHeight;
+    ctx.filter = `blur(${blur}px)`;
+    nt = 0;
+    window.onresize = function () {
+      w = ctx.canvas.width = window.innerWidth;
+      h = ctx.canvas.height = window.innerHeight;
+      ctx.filter = `blur(${blur}px)`;
+    };
+    render();
+  };
+
+  const waveColors = colors ?? [
+    "#38bdf8",
+    "#818cf8",
+    "#c084fc",
+    "#e879f9",
+    "#22d3ee",
+  ];
+  const drawWave = (n: number) => {
+    nt += getSpeed();
+    for (i = 0; i < n; i++) {
+      ctx.beginPath();
+      ctx.lineWidth = waveWidth || 50;
+      ctx.strokeStyle = waveColors[i % waveColors.length];
+      for (x = 0; x < w; x += 5) {
+        const y = noise(x / 800, 0.3 * i, nt) * 100;
+        ctx.lineTo(x, y + h * 0.5); // adjust for height, currently at 50% of the container
+      }
+      ctx.stroke();
+      ctx.closePath();
+    }
+  };
+
+  let animationId: number;
+  const render = () => {
+    ctx.fillStyle = backgroundFill || "black";
+    ctx.globalAlpha = waveOpacity || 0.5;
+    ctx.fillRect(0, 0, w, h);
+    drawWave(5);
+    animationId = requestAnimationFrame(render);
+  };
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    init();
+    return () => {
+      cancelAnimationFrame(animationId);
     };
-
-    const drawWave = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      ctx.globalAlpha = waveOpacity;
-      ctx.fillStyle = colors[0];
-
-      ctx.beginPath();
-      ctx.moveTo(0, canvas.height / 2);
-
-      for (let i = 0; i <= canvas.width; i++) {
-        ctx.lineTo(
-          i,
-          canvas.height / 2 + Math.sin(i * 0.02 + Date.now() * 0.002) * waveHeight,
-        );
-      }
-
-      ctx.lineTo(canvas.width, canvas.height);
-      ctx.lineTo(0, canvas.height);
-      ctx.closePath();
-      ctx.fill();
-
-      ctx.globalAlpha = 1;
-      requestAnimationFrame(drawWave);
-    };
-
-    resizeCanvas();
-    drawWave();
-    window.addEventListener("resize", resizeCanvas);
-
-    return () => window.removeEventListener("resize", resizeCanvas);
-  }, [colors, waveHeight, waveOpacity]);
+  }, []);
 
   return (
-    <div className={cn("relative h-screen w-full overflow-hidden", className)}>
-      <motion.canvas
+    <div
+      className={cn(
+        "h-screen flex flex-col items-center justify-center",
+        containerClassName
+      )}
+    >
+      <canvas
+        className="absolute inset-0 z-0"
         ref={canvasRef}
-        className="absolute top-0 left-0 h-full w-full"
-      />
-      <div className="relative z-10 flex h-full w-full items-center justify-center text-white">
+        id="canvas"
+      ></canvas>
+      <div className={cn("relative z-10", className)} {...props}>
         {children}
       </div>
     </div>
