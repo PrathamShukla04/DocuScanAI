@@ -9,6 +9,16 @@ import {
 } from "framer-motion";
 import { cn } from "@/utils/cn";
 
+type ButtonProps = {
+  borderRadius?: string;
+  children: React.ReactNode;
+  as?: React.ElementType;
+  containerClassName?: string;
+  borderClassName?: string;
+  duration?: number;
+  className?: string;
+} & React.ComponentPropsWithoutRef<"button">;
+
 export function Button({
   borderRadius = "1.75rem",
   children,
@@ -18,16 +28,7 @@ export function Button({
   duration,
   className,
   ...otherProps
-}: {
-  borderRadius?: string;
-  children: React.ReactNode;
-  as?: any;
-  containerClassName?: string;
-  borderClassName?: string;
-  duration?: number;
-  className?: string;
-  [key: string]: any;
-}) {
+}: ButtonProps) {
   return (
     <Component
       className={cn(
@@ -37,7 +38,7 @@ export function Button({
       style={{ borderRadius }}
       {...otherProps}
     >
-      {/* Only the glowing effect, no solid border */}
+      {/* Glowing Border */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ borderRadius: `calc(${borderRadius} * 0.96)` }}
@@ -45,14 +46,14 @@ export function Button({
         <MovingBorder duration={duration} rx="30%" ry="30%">
           <div
             className={cn(
-              "h-44 w-44 animate-pulse opacity-80 blur-md z-10 bg-[radial-gradient(#22d3ee_40%,transparent_60%)]", // teal glow
+              "h-44 w-44 animate-pulse opacity-80 blur-md z-10 bg-[radial-gradient(#22d3ee_40%,transparent_60%)]",
               borderClassName
             )}
           />
         </MovingBorder>
       </div>
 
-      {/* Inner content — no border */}
+      {/* Inner Content */}
       <div
         className={cn(
           "relative bg-black text-white flex items-center justify-center w-full h-full text-base font-semibold",
@@ -68,21 +69,22 @@ export function Button({
   );
 }
 
+type MovingBorderProps = {
+  children: React.ReactNode;
+  duration?: number;
+  rx?: string;
+  ry?: string;
+} & React.SVGProps<SVGSVGElement>;
+
 export const MovingBorder = ({
   children,
   duration = 2000,
   rx,
   ry,
   ...otherProps
-}: {
-  children: React.ReactNode;
-  duration?: number;
-  rx?: string;
-  ry?: string;
-  [key: string]: any;
-}) => {
+}: MovingBorderProps) => {
   const pathRef = useRef<SVGRectElement>(null);
-  const progress = useMotionValue<number>(0);
+  const progress = useMotionValue(0);
 
   useAnimationFrame((time) => {
     const length = pathRef.current?.getTotalLength();
