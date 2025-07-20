@@ -1,5 +1,6 @@
 "use client";
-import React, { useRef } from "react";
+
+import React, { useRef, useState } from "react";
 import { useMotionValueEvent, useScroll, motion } from "framer-motion";
 
 export const StickyScroll = ({
@@ -10,8 +11,9 @@ export const StickyScroll = ({
     description: string;
   }[];
 }) => {
-  const [activeCard, setActiveCard] = React.useState(0);
-  const ref = useRef<any>(null);
+  const [activeCard, setActiveCard] = useState(0);
+
+  const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     container: ref,
     offset: ["start start", "end start"],
@@ -20,10 +22,10 @@ export const StickyScroll = ({
   const cardLength = content.length;
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const cardsBreakpoints = content.map((_, index) => index / cardLength);
-    cardsBreakpoints.forEach((breakpoint, index) => {
-      if (latest > breakpoint - 0.2 && latest <= breakpoint) {
-        setActiveCard(() => index);
+    const breakpoints = content.map((_, i) => i / cardLength);
+    breakpoints.forEach((point, i) => {
+      if (latest > point - 0.2 && latest <= point) {
+        setActiveCard(i);
       }
     });
   });
@@ -38,8 +40,7 @@ export const StickyScroll = ({
   return (
     <motion.div
       animate={{
-        backgroundColor:
-          backgroundColors[activeCard % backgroundColors.length],
+        backgroundColor: backgroundColors[activeCard % backgroundColors.length],
       }}
       className="h-[30rem] overflow-y-auto flex justify-center relative space-x-10 rounded-md p-10"
       ref={ref}
@@ -80,8 +81,7 @@ export const StickyScroll = ({
         animate={{
           opacity: 1,
           scale: 1,
-          background:
-            linearGradients[activeCard % linearGradients.length],
+          background: linearGradients[activeCard % linearGradients.length],
         }}
         transition={{ duration: 0.6, ease: "easeInOut" }}
         className="hidden lg:block h-60 w-80 rounded-md sticky top-10 overflow-hidden shadow-2xl"

@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/utils/cn";
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { createNoise3D } from "simplex-noise";
 import { motion } from "framer-motion";
 
@@ -60,34 +60,21 @@ export const Vortex = ({
   const lerp = (n1: number, n2: number, speed: number): number =>
     (1 - speed) * n1 + speed * n2;
 
-  const setup = () => {
-    const canvas = canvasRef.current;
-    const container = containerRef.current;
-    if (canvas && container) {
-      const ctx = canvas.getContext("2d");
-      if (ctx) {
-        resize(canvas, ctx);
-        initParticles();
-        draw(canvas, ctx);
-      }
-    }
-  };
-
-  const resize = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
+  const resize = useCallback((canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
     const { innerWidth, innerHeight } = window;
     canvas.width = innerWidth;
     canvas.height = innerHeight;
     center[0] = 0.5 * canvas.width;
     center[1] = 0.5 * canvas.height;
-  };
+  }, []);
 
-  const initParticles = () => {
+  const initParticles = useCallback(() => {
     tick = 0;
     particleProps = new Float32Array(particlePropsLength);
     for (let i = 0; i < particlePropsLength; i += particlePropCount) {
       initParticle(i);
     }
-  };
+  }, []);
 
   const initParticle = (i: number) => {
     const canvas = canvasRef.current;
@@ -106,7 +93,7 @@ export const Vortex = ({
     particleProps.set([x, y, vx, vy, life, ttl, speed, radius, hue], i);
   };
 
-  const draw = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
+  const draw = useCallback((canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
     tick++;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = backgroundColor;
@@ -117,7 +104,7 @@ export const Vortex = ({
     renderToScreen(canvas, ctx);
 
     animationFrameId.current = requestAnimationFrame(() => draw(canvas, ctx));
-  };
+  }, [backgroundColor]);
 
   const drawParticles = (ctx: CanvasRenderingContext2D) => {
     for (let i = 0; i < particlePropsLength; i += particlePropCount) {
@@ -215,13 +202,26 @@ export const Vortex = ({
     ctx.restore();
   };
 
-  const handleResize = () => {
+  const handleResize = useCallback(() => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
     if (canvas && ctx) {
       resize(canvas, ctx);
     }
-  };
+  }, [resize]);
+
+  const setup = useCallback(() => {
+    const canvas = canvasRef.current;
+    const container = containerRef.current;
+    if (canvas && container) {
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        resize(canvas, ctx);
+        initParticles();
+        draw(canvas, ctx);
+      }
+    }
+  }, [resize, initParticles, draw]);
 
   useEffect(() => {
     setup();
@@ -230,7 +230,7 @@ export const Vortex = ({
       window.removeEventListener("resize", handleResize);
       if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
     };
-  }, []);
+  }, [handleResize, setup]);
 
   return (
     <div className={cn("relative h-full w-full", containerClassName)}>
