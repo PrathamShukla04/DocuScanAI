@@ -25,7 +25,7 @@ export default function AboutPage() {
           <strong className="text-white">DocuScan AI</strong> is a smart document processing and summarization tool built during a national-level hackathon. It aims to make comprehension of large files seamless, fast, and intelligent.
         </p>
         <p>
-          Whether it's a DOCX, PDF, or plain text, the system parses and processes documents using AI to extract highlights, generate summaries, and allow interactive exploration — making it ideal for researchers, students, and working professionals.
+          Whether it&apos;s a DOCX, PDF, or plain text, the system parses and processes documents using AI to extract highlights, generate summaries, and allow interactive exploration — making it ideal for researchers, students, and working professionals.
         </p>
         <p>
           The app was designed to blend ML intelligence with a user-first interface — offering a clean, dark-themed UI with animations, responsive layout, and real-time feedback capabilities.

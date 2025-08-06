@@ -16,7 +16,7 @@ function MusicSchoolContactUs() {
     setError('');
 
     const templateParams = {
-  name: email, // or use a separate name field
+  name: email, 
   email: email,
   message: message,
   title: 'Contact Request from Site',
@@ -33,10 +33,16 @@ try {
   setSent(true);
   setEmail('');
   setMessage('');
-} catch (err: any) {
-  console.error("EmailJS error:", err?.text || err?.message || err);
+} catch (err: unknown) {
+  if (err && typeof err === 'object' && 'message' in err) {
+    console.error("EmailJS error:", (err as { message: string }).message);
+  } else {
+    console.error("Unknown error:", err);
+  }
+
   setError('Something went wrong. Please try again.');
 }
+
 
   };
 
@@ -48,7 +54,7 @@ try {
             Contact Us
           </h1>
           <p className="text-neutral-400 max-w-lg mx-auto my-2 text-sm text-center">
-            Have questions, suggestions, or feedback? Drop us a message and we'll get back to you soon!
+            Have questions, suggestions, or feedback? Drop us a message and w&apos;ll get back to you soon!
           </p>
           <form onSubmit={handleSubmit} className="space-y-4 mt-4">
             <input

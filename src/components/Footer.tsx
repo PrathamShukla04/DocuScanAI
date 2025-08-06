@@ -1,9 +1,11 @@
+import Link from 'next/link'
+
 function Footer() {
   return (
     <footer className="bg-black text-gray-400 py-12">
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4 sm:px-6 lg:px-8">
         
-        {/* About Section */}
+        
         <div>
           <h2 className="text-white text-lg font-semibold mb-4">About Project</h2>
           <p className="mb-4">
@@ -11,35 +13,35 @@ function Footer() {
           </p>
         </div>
 
-        {/* Quick Links */}
+      
         <div>
           <h2 className="text-white text-lg font-semibold mb-4">Quick Links</h2>
           <ul>
             <li>
-              <a href="/" className="hover:text-white transition-colors duration-300">Home</a>
+              <Link href="/" className="hover:text-white transition-colors duration-300">Home</Link>
             </li>
             <li>
-              <a href="/upload" className="hover:text-white transition-colors duration-300">Upload</a>
+              <Link href="/upload" className="hover:text-white transition-colors duration-300">Upload</Link>
             </li>
             <li>
-              <a href="/results" className="hover:text-white transition-colors duration-300">Results</a>
+              <Link href="/results" className="hover:text-white transition-colors duration-300">Results</Link>
             </li>
             <li>
-              <a href="/about" className="hover:text-white transition-colors duration-300">About</a>
+              <Link href="/Linkbout" className="hover:text-white transition-colors duration-300">About</Link>
             </li>
           </ul>
         </div>
 
-        {/* Follow Us */}
+        
         <div>
           <h2 className="text-white text-lg font-semibold mb-4">Follow Us</h2>
           <div className="flex space-x-4">
-            <a href="#" className="hover:text-white transition-colors duration-300">GitHub</a>
-            <a href="#" className="hover:text-white transition-colors duration-300">LinkedIn</a>
+            <Link href="#" className="hover:text-white transition-colors duration-300">GitHub</Link>
+            <Link href="#" className="hover:text-white transition-colors duration-300">LinkedIn</Link>
           </div>
         </div>
 
-        {/* Contact Info */}
+      
         <div>
   <h2 className="text-white text-lg font-semibold mb-4">Contact</h2>
   <p>Ghaziabad, India</p>
