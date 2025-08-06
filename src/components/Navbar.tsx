@@ -15,25 +15,35 @@ const Navbar: React.FC<NavbarProps> = ({ className }) => {
   return (
     <div className={cn("fixed top-10 left-1/2 -translate-x-1/2 w-2xl z-50", className)}>
       <Menu setActive={setActive}>
+        {/* Home Link */}
         <Link href="/" passHref>
           <div>
             <MenuItem setActive={setActive} active={active} item="Home" />
           </div>
         </Link>
 
-        <MenuItem setActive={setActive} active={active} item="Our Courses">
+        {/* Dropdown Menu */}
+        <MenuItem setActive={setActive} active={active} item="Explore">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/courses">All Courses</HoveredLink>
-            <HoveredLink href="/courses">Basic Music Theory</HoveredLink>
-            <HoveredLink href="/courses">Advance Composition</HoveredLink>
-            <HoveredLink href="/courses">Songwriting</HoveredLink>
-            <HoveredLink href="/courses">Music Production</HoveredLink>
+            <HoveredLink href="/upload">📄 Upload PDF</HoveredLink>
+            <HoveredLink href="/results">📈 Results</HoveredLink>
+            <HoveredLink href="/about">ℹ️ About</HoveredLink>
+            <HoveredLink href="/techstack">🛠️ Tech Stack</HoveredLink>
+
           </div>
         </MenuItem>
 
+        {/* Contact */}
         <Link href="/contact" passHref>
           <div>
             <MenuItem setActive={setActive} active={active} item="Contact Us" />
+          </div>
+        </Link>
+
+        {/* Auth */}
+        <Link href="/signin" passHref>
+          <div>
+            <MenuItem setActive={setActive} active={active} item="Sign In / Sign Up" />
           </div>
         </Link>
       </Menu>
