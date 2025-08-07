@@ -9,7 +9,7 @@ export default function AboutPage() {
     <main className="relative min-h-screen bg-black text-white px-6 sm:px-16 pt-40 pb-20 overflow-hidden">
       {/* Lamp visual layer (behind content) */}
       <div className="absolute inset-0 z-0">
-        <LampContainer />
+        <LampContainer></LampContainer>
       </div>
 
       {/* Actual content (on top of lamp) */}
