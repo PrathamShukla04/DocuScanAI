@@ -34,17 +34,20 @@ function UploadPage() {
 
       setLoading(true);
       try {
-        const res = await fetch("https://beeb81367099.ngrok-free.app/predict", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            query,
-            domain,
-            documents: [base64String],
-          }),
-        });
+        const res = await fetch(
+          "https://hackathonfinal-blue.vercel.app/predict",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              query,
+              domain,
+              documents: [base64String],
+            }),
+          }
+        );
 
         const data = await res.json();
         setResponse(JSON.stringify(data, null, 2));
