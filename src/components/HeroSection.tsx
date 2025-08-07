@@ -12,19 +12,15 @@ const HeroSection: React.FC = () => {
 
       <div className="p-4 relative z-10 w-full text-center">
         <h1 className="mt-20 md:mt-0 text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
-          ClauseLogic
+          DocuScan AI
         </h1>
 
         <h5 className="mt-20 md:mt-0 text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
-          Have a question for your documents?
-
+          Analyze Documents Effortlessly
         </h5>
 
         <p className="mt-4 font-normal text-base md:text-lg text-neutral-300 max-w-xl mx-auto">
-          Just ask. ClauseLogic reads your policies, contracts, and manuals to find the exact answer you need, instantly.
-          <br />
-          <br />
-          Ideal for domains like <span className="font-semibold text-white">insurance</span>, <span className="font-semibold text-white">legal compliance</span>, <span className="font-semibold text-white">human resources</span>, and <span className="font-semibold text-white">contract management</span>.
+          Upload DOCX, PDF, or TXT files and get instant insights. Summarize, extract key points, or dive deep into content — all powered by AI.
         </p>
 
         <div className="mt-6">

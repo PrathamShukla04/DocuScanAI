@@ -2,7 +2,7 @@
 import FeaturedCourses from "@/components/FeaturedModules";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
-import Instructors from "@/components/Members";
+import Instructors from "@/components/Instructors";
 
 
 export default function Home() {
