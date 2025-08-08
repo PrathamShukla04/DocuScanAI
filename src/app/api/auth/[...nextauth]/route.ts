@@ -50,7 +50,9 @@ const handler = NextAuth({
         await dbConnect();
 
         // Find user by email and include password field (normally excluded)
-        const user = await IUser.findOne({ email }).select("+password") as any;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+const user = await IUser.findOne({ email }).select("+password") as any;
+
 
 
         if (!user) {
