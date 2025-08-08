@@ -70,8 +70,9 @@ export default function AboutPage() {
           <ul className="text-neutral-200 text-base space-y-2">
             <li>👨‍💻 <strong className="text-white">Pratham Shukla</strong> – Frontend & UI/UX Developer</li>
             <li>👨‍💻 <strong className="text-white">Parikshit Jaiswal</strong> – Backend & API Developer</li>
-            <li>🧠 <strong className="text-white">Rifa</strong> – ML/NLP Developer</li>
-            <li>🧠 <strong className="text-white">Pratyaksha Gupta</strong> – ML/NLP Developer</li>
+            <li>👨‍💻 <strong className="text-white">Rifa</strong> – ML/NLP Developer</li>
+            <li>👨‍💻 <strong className="text-white">Pratyaksha Gupta</strong> – ML/NLP Developer</li>
+            <li>👨‍💻 <strong className="text-white">Sagar Goel</strong> – UI/UX Developer</li>
           </ul>
         </motion.div>
       </div>
