@@ -74,19 +74,19 @@ export default function TeamPage() {
   content: (
     <div className="space-y-4">
       <p className="text-sm text-neutral-300 dark:text-neutral-200">
-        I'm a passionate Full Stack Developer with strong experience building scalable web applications using the MERN stack. I'm currently pursuing a B.Tech in Information Technology from Ajay Kumar Garg Engineering College with a CGPA of 8.32.
+        I&apos;m a passionate Full Stack Developer with strong experience building scalable web applications using the MERN stack. I'm currently pursuing a B.Tech in Information Technology from Ajay Kumar Garg Engineering College with a CGPA of 8.32.
       </p>
       <p className="text-sm text-neutral-300 dark:text-neutral-200">
-        I've contributed to real-world projects at organizations like Softhire and the Computer Society of India, where I implemented responsive UI using React.js, Redux, and Tailwind CSS, integrated REST APIs with React Query, and optimized backend logic using Node.js and MongoDB.
+        I&apos;ve contributed to real-world projects at organizations like Softhire and the Computer Society of India, where I implemented responsive UI using React.js, Redux, and Tailwind CSS, integrated REST APIs with React Query, and optimized backend logic using Node.js and MongoDB.
       </p>
       <p className="text-sm text-neutral-300 dark:text-neutral-200">
         Some of my major projects include <strong>Hola</strong> — a social app with token-based authentication and post management — and <strong>WanderLust</strong> — a booking platform with secure login, advanced search, and dynamic listings.
       </p>
       <p className="text-sm text-neutral-300 dark:text-neutral-200">
-        I'm a DevQuest Hackathon Finalist at IIT Jodhpur and have ranked in the Top 5 in multiple national-level hackathons, including SprintHack and Hack Overflow.
+        I&apos;m a DevQuest Hackathon Finalist at IIT Jodhpur and have ranked in the Top 5 in multiple national-level hackathons, including SprintHack and Hack Overflow.
       </p>
       <p className="text-sm text-neutral-300 dark:text-neutral-200">
-        My tech stack includes JavaScript, TypeScript, React.js, Next.js, Node.js, Express.js, MongoDB, Docker, and more. I'm passionate about clean code, collaboration, and building impactful software solutions.
+        My tech stack includes JavaScript, TypeScript, React.js, Next.js, Node.js, Express.js, MongoDB, Docker, and more. I&apos;m passionate about clean code, collaboration, and building impactful software solutions.
       </p>
       <p className="text-sm text-neutral-300 dark:text-neutral-200">
         📧 <a href="mailto:parikshitjaiswal82@gmail.com" className="underline text-cyan-400">parikshitjaiswal82@gmail.com</a><br />
