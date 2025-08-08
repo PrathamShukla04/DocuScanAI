@@ -40,7 +40,7 @@ function Instructors() {
         <p className="text-base md:text-lg text-white text-center mb-4 max-w-2xl">
           Meet the brilliant minds behind ClauseLogic — a document analyzer built with precision, passion, and purpose for HackRx 6.0.
         </p>
-        <div className="flex flex-row items-center justify-center mb-10 w-full mt-12">
+        <div className="flex mt-10 flex-row items-center justify-center mb-10 w-full mt-12">
           <AnimatedTooltip items={instructors} />
         </div>
       </WavyBackground>
