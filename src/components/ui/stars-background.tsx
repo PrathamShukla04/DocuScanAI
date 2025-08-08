@@ -134,7 +134,7 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
     <canvas
       ref={canvasRef}
       className={cn("absolute inset-0 w-full h-full block", className)}
-      style={{ display: "block" }}
+        style={{ display: "block", pointerEvents: "none" }}
     />
   );
 };

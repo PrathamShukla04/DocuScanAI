@@ -1,4 +1,11 @@
 @import "tailwindcss";
+button{
+  cursor: pointer;
+}
+input {
+  cursor: pointer;
+}
+
 
 :root {
   --background: #ffffff;

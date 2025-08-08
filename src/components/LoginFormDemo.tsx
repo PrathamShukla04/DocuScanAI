@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
@@ -9,10 +10,39 @@ import {
 } from "@tabler/icons-react";
 
 export function LoginFormDemo() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [message, setMessage] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    setMessage("");
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setMessage("✅ Login successful!");
+        // Because backend sets HttpOnly cookie, just redirect or update UI
+        router.push("/dashboard"); // or wherever your logged-in page is
+      } else {
+        setMessage(`❌ ${data.message || "Login failed"}`);
+      }
+    } catch (error) {
+      setMessage("❌ Server error, please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <div className=" mt-50 shadow-input mx-auto w-full max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black">
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
@@ -24,24 +54,39 @@ export function LoginFormDemo() {
         
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="ENTER YOUR EMAIL ID" type="email" />
-        </LabelInputContainer>
+          <input
+        type="email"
+        placeholder="ENTER YOUR EMAIL ID"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        required
+      />
+ </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="ENTER YOUR PASSWORD" type="password" />
+          <input
+        type="password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+         placeholder="ENTER YOUR PASSWORD"
+        required
+      />
         </LabelInputContainer>
         
 
         <button
           className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
           type="submit"
+          disabled={loading}
         >
-          Login &rarr;
+          {loading ? "Logging in..." : "Login"} &rarr;
           <BottomGradient />
         </button>
+        
+{message && <p>{message}</p>}
         <p className="mt-4 text-sm text-neutral-500 dark:text-neutral-400">
           New to ClauseLogic?{" "}
-          <a href="/signin" className="text-cyan-500 hover:underline">
+          <a href="/signup" className="text-cyan-500 hover:underline">
             Sign Up
           </a>
           </p>

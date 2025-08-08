@@ -29,7 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({ className }) => {
             <HoveredLink href="/results">📈 Results</HoveredLink>
             <HoveredLink href="/about">ℹ️ About</HoveredLink>
             <HoveredLink href="/techstack">🛠️ Tech Stack</HoveredLink>
-
+            <HoveredLink href="/team">🧑‍💻 Team</HoveredLink>
           </div>
         </MenuItem>
 
@@ -41,9 +41,9 @@ const Navbar: React.FC<NavbarProps> = ({ className }) => {
         </Link>
 
         {/* Auth */}
-        <Link href="/signin" passHref>
+        <Link href="/signup" passHref>
           <div>
-            <MenuItem setActive={setActive} active={active} item="Sign In / Sign Up" />
+            <MenuItem setActive={setActive} active={active} item="SignIn / SignUp" />
           </div>
         </Link>
       </Menu>
