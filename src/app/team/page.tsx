@@ -34,6 +34,13 @@ export default function TeamPage() {
       designation: "ML/NLP Developer",
       src: "/4.jpg",
     },
+    {
+      quote:
+        "Designing a user-friendly interface that makes complex data accessible was my top priority.",
+      name: "Sagar Goel",
+      designation: "UI/UX Developer",
+      src: "/5.jpg",
+    },
   ];
 
   const data = [
@@ -134,6 +141,28 @@ export default function TeamPage() {
             📞 +91 8368104343
           </p>
         </div>
+      ),
+    },
+    {
+      title: "👨‍💻 Pratyaksha Gupta",
+      content: (
+        <div className="space-y-4">
+      <p className="text-sm text-neutral-300 dark:text-neutral-200">
+        I’m an enthusiastic and driven Computer Science undergraduate at Ajay Kumar Garg Engineering College, currently maintaining a CGPA of 9.02. With a solid foundation in front-end and full-stack development, I’m passionate about building responsive and user-friendly web applications.
+      </p>
+      <p className="text-sm text-neutral-300 dark:text-neutral-200">
+        My technical skills include React.js, Tailwind CSS, Node.js, Express.js, MongoDB, and JavaScript. I’ve worked on projects like NetflixGPT (AI-powered movie discovery), Vidstream (video streaming platform), and CodeConnect (developer networking with real-time chat and video calls).
+      </p>
+      <p className="text-sm text-neutral-300 dark:text-neutral-200">
+        I thrive on collaboration, clean code, and continuously learning new technologies to create engaging user experiences.
+      </p>
+      <p className="text-sm text-neutral-300 dark:text-neutral-200">
+        📧 <a href="mailto:sagargoel163@gmail.com" className="underline text-cyan-400">sagargoel163@gmail.com</a><br />
+        🔗 <a href="https://www.linkedin.com/in/sagar-goel07/" target="_blank" rel="noopener noreferrer" className="underline text-cyan-400">LinkedIn</a><br />
+        📞 +91 7060934484
+      </p>
+    </div>
+        
       ),
     },
   ];

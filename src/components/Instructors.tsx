@@ -31,6 +31,12 @@ const instructors = [
     image:
       '/4.jpg',
   },
+  {
+    id: 5,
+    name: 'Sagar Goel',
+    designation: 'UI/UX Developer',
+    image: '/5.jpg',
+  },
 ];
 
 function Instructors() {

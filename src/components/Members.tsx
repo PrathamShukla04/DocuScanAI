@@ -28,6 +28,12 @@ const instructors = [
     designation: 'ML Developer',
     image: '/4.jpg',
   },
+  {
+    id: 5,
+    name: 'Sagar Goel',
+    designation: 'UI/UX Developer',
+    image: '/5.jpg',
+  },
 ];
 
 function Instructors() {
@@ -40,7 +46,9 @@ function Instructors() {
         <p className="text-base md:text-lg text-white text-center mb-4 max-w-2xl">
           Meet the brilliant minds behind ClauseLogic — a document analyzer built with precision, passion, and purpose for HackRx 6.0.
         </p>
-        <div className="flex mt-10 flex-row items-center justify-center mb-10 w-full mt-12">
+
+        {/* Increase margin-top here to add more space between text and images */}
+        <div className="flex mt-16 flex-row items-center justify-center mb-10 w-full">
           <AnimatedTooltip items={instructors} />
         </div>
       </WavyBackground>

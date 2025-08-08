@@ -1,3 +1,4 @@
+"use client";
 import Link from 'next/link';
 
 function Footer() {
@@ -40,17 +41,16 @@ function Footer() {
               <p className="text-white">GitHub :</p>
               <Link href="https://github.com/PrathamShukla04/DocuScanAI" target="_blank"
                 rel="noopener noreferrer"  className="hover:text-white transition-colors duration-300 block">
-              Repo 1
-            </Link>
-            <Link href="https://github.com/sustainablerobot/Hackathon-6" target="_blank"
+                Repo 1
+              </Link>
+              <Link href="https://github.com/sustainablerobot/Hackathon-6" target="_blank"
                 rel="noopener noreferrer"  className="hover:text-white transition-colors duration-300 block">
-              Repo 2
-            </Link>
+                Repo 2
+              </Link>
             </div>
             
             <div>
               <p className="text-white">LinkedIn :</p>
-
 
               <Link href="https://www.linkedin.com/in/pratham-shukla-35b65a330/" target="_blank"
                 rel="noopener noreferrer" className="hover:text-white transition-colors duration-300 block">
@@ -68,6 +68,10 @@ function Footer() {
                 rel="noopener noreferrer" className="hover:text-white transition-colors duration-300 block">
                 Pratyaksha
               </Link>
+              <Link href="https://www.linkedin.com/in/sagar-goel07/" target="_blank"
+                rel="noopener noreferrer" className="hover:text-white transition-colors duration-300 block">
+                Sagar
+              </Link>
             </div>
           </div>
 
@@ -82,6 +86,7 @@ function Footer() {
           <p>parikshitjaiswal82@gmail.com</p>
           <p>rrifa0609@gmail.com</p>
           <p>pratyakshagupta410@gmail.com</p>
+          <p>sagargoel163@gmail.com</p>
         </div>
       </div>
 
