@@ -144,7 +144,7 @@ export default function TeamPage() {
       ),
     },
     {
-      title: "👨‍💻 Pratyaksha Gupta",
+      title: "👨‍💻 Sagar Goel",
       content: (
         <div className="space-y-4">
       <p className="text-sm text-neutral-300 dark:text-neutral-200">
