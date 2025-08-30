@@ -5,16 +5,12 @@ import { StarsBackground } from "../../components/ui/stars-background";
 import { ShootingStars } from "../../components/ui/shooting-stars";
 
 export default function UploadPage() {
-
   const [uploadSuccessMessage, setUploadSuccessMessage] = useState('')
   const [sessionId, setSessionId] = useState("");
   const [loading, setLoading] = useState(false)
   const [query, setQuery] = useState("");
   const [answer, setAnswer] = useState("");
-  const [domain, setDomain] = useState('')
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
   const [uploading, setUploading] = useState(false)
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,73 +32,71 @@ export default function UploadPage() {
   }
 
   const handleUpload = async () => {
-    if (!domain || !selectedFile) {
-      alert('Please select a domain and a file before uploading.')
-      return
-    }
+    const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
+      
+  if (!selectedFile) {
+    alert('Please select a file before uploading.')
+    return
+  }
 
-    setUploading(true)
+  setUploading(true)
 
-    try {
-      const base64Content = await fileToBase64(selectedFile)
+  try {
+    const formData = new FormData()
+    // 🔑 The key must be "files" (plural) to match backend
+    formData.append("files", selectedFile)
 
-      const payload = {
-        domain,
-        documents: [base64Content],
-      }
+    const response = await fetch(`${API_BASE}/upload`, {
+      method: "POST",
+      body: formData, // no headers needed, browser sets them
+    })
 
-      const response = await fetch('https://code-blooded-6ylb.onrender.com/upload', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-
-      const data = await response.json()
+    const data = await response.json()
 
     if (response.ok) {
-  setUploadSuccessMessage('✅ Upload successful!');
-} else {
-  setUploadSuccessMessage(`❌ Upload failed: ${data.error || 'Unknown error'}`);
+      setUploadSuccessMessage("✅ Upload successful!")
+    } else {
+      setUploadSuccessMessage(`❌ Upload failed: ${data.error || "Unknown error"}`)
+    }
+
+    if (data.session_id) {
+      setSessionId(data.session_id)
+    }
+  } catch (error) {
+    alert(`❌ Error during upload: ${error}`)
+  } finally {
+    setUploading(false)
+  }
 }
 
-      if (data.session_id) {
-        setSessionId(data.session_id); 
-      }
-    } catch (error) {
-      alert('❌ Error during upload: ${error}')
-    } finally {
-      setUploading(false)
-    }
-  }
+
   const handleQuery = async () => {
+    const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
+      
     if (!query.trim()) return;
 
     try {
       setLoading(true);
-
-      const res = await fetch("https://code-blooded-6ylb.onrender.com/query", {
+      const res = await fetch(`${API_BASE}/query`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           query,
-          domain,       // this should come from your state (selected by user)
           session_id: sessionId,
         }),
       });
 
       const data = await res.json();
       console.log("Query Response:", data);
-      // You can set state here to display the response on the page
 
+      setAnswer(data.answer || "No answer found.");
     } catch (error) {
       console.error("Error handling query:", error);
+      setAnswer("❌ Error while fetching answer.");
     } finally {
       setLoading(false);
     }
   };
-
 
   return (
     <main className="min-h-screen bg-black text-white px-6 py-32 flex flex-col items-center justify-start relative">
@@ -117,6 +111,7 @@ export default function UploadPage() {
       >
         Upload Your Document <br /> Let AI Do The Work
       </motion.h1>
+
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -126,72 +121,61 @@ export default function UploadPage() {
         Upload your PDF or DOCX files — ClauseLogic will extract approvals, monetary amounts,
         and clause-level justification instantly.
       </motion.p>
+
+      {/* Upload Section */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="border border-neutral-700 p-4 rounded-xl mb-6 w-full max-w-md bg-neutral-900"
       >
-        <div className="mb-4">
-          <label className="block  mb-1 font-semibold">Select Domain:</label>
-          <select
-            value={domain}
-            onChange={(e) => setDomain(e.target.value)}
-            className="w-full p-2 border rounded bg-black text-white"
-          >
-            <option value="">-- Select Domain --</option>
-            <option value="contract_management">Contract Management</option>
-            <option value="hr">Human Resource</option>
-            <option value="legal">Legal</option>
-            <option value="insurance">Insurance</option>
-          </select>
-        </div>
         <input
           type="file"
           onChange={handleFileChange}
-          className="hover:cursor-pointer border border-gray-400 rounded p-1 mb-2"
+          className="hover:cursor-pointer border border-gray-400 rounded p-1 mb-2 w-full"
         />
 
         <button
           onClick={handleUpload}
-          className="hover:cursor-pointer bg-blue-600 text-white px-4 py-2 rounded mb-4"
+          className="hover:cursor-pointer bg-blue-600 text-white px-4 py-2 rounded mb-4 w-full"
           disabled={uploading}
         >
           {uploading ? '⏳ Uploading...' : 'Upload'}
-          
         </button>
-        {uploadSuccessMessage}
+
+        {uploadSuccessMessage && (
+          <p className="mt-2 text-sm">{uploadSuccessMessage}</p>
+        )}
       </motion.div>
+
+      {/* Query Section */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="border border-neutral-700 p-4 rounded-xl mb-6 w-full max-w-md bg-neutral-900"
       >
-        <div className="mt-8">
-          <label className="block mb-2 font-semibold">Ask your query:</label>
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="e.g., What is healthy baby expense?"
-            className="w-full p-2 border rounded mb-4"
-          />
-          <button
-            onClick={handleQuery}
-            className="hover:cursor-pointer bg-green-600 text-white px-4 py-2 rounded"
-            disabled={loading}
-          >
-            {loading ? '⏳ Asking...' : 'Ask'}
-          </button>
+        <label className="block mb-2 font-semibold">Ask your query:</label>
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="e.g., What is healthy baby expense?"
+          className="w-full p-2 border rounded mb-4 text-white"
+        />
+        <button
+          onClick={handleQuery}
+          className="hover:cursor-pointer bg-green-600 text-white px-4 py-2 rounded w-full"
+          disabled={loading}
+        >
+          {loading ? '⏳ Asking...' : 'Ask'}
+        </button>
 
-          {answer && (
-            <div className="mt-6 bg-gray-100 p-4 rounded">
-              <h2 className="font-bold mb-2">📢 Answer:</h2>
-              <p>{answer}</p>
-            </div>
-          )}
-        </div>
+        {answer && (
+          <div className="mt-6 bg-gray-100 p-4 rounded text-black">
+            <h2 className="font-bold mb-2">📢 Answer:</h2>
+            <p>{answer}</p>
+          </div>
+        )}
       </motion.div>
-
-    </main >
+    </main>
   )
 }

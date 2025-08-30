@@ -68,10 +68,6 @@ function Footer() {
                 rel="noopener noreferrer" className="hover:text-white transition-colors duration-300 block">
                 Pratyaksha
               </Link>
-              <Link href="https://www.linkedin.com/in/sagar-goel07/" target="_blank"
-                rel="noopener noreferrer" className="hover:text-white transition-colors duration-300 block">
-                Sagar
-              </Link>
             </div>
           </div>
 
@@ -86,7 +82,6 @@ function Footer() {
           <p>parikshitjaiswal82@gmail.com</p>
           <p>rrifa0609@gmail.com</p>
           <p>pratyakshagupta410@gmail.com</p>
-          <p>sagargoel163@gmail.com</p>
         </div>
       </div>
 
