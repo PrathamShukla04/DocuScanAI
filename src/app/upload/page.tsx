@@ -171,7 +171,7 @@ export default function UploadPage() {
 
         {answer && (
           <div className="mt-6 bg-gray-100 p-4 rounded text-black">
-            <h2 className="font-bold mb-2">📢 Answer:</h2>
+            <h2 className="font-bold mb-2">📢 Answer to your query :</h2>
             <p>{answer}</p>
           </div>
         )}
